@@ -1,24 +1,42 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import LoginPage from "./pages/loginPage";
+import { Toaster } from "react-hot-toast";
+import { storageKey } from "./constants";
+import PaymentsPage from "./pages/paymentPage";
+import WalletPage from "./pages/walletPage";
+interface UserDataInterface {
+  name: string;
+  amount: number;
+}
 function App() {
+  const [userData, setUserData] = useState<UserDataInterface>({
+    name: "",
+    amount: 0,
+  });
+  const [walletId, setWalletId] = useState<string>("");
+  const [showLoginPage, setShowLoginPage] = useState<boolean>(true);
+  useEffect(() => {
+    const walletIdFromStorage = localStorage.getItem(storageKey.walletID);
+    if (!walletIdFromStorage) {
+      setShowLoginPage(true);
+    } else {
+      setWalletId(walletIdFromStorage);
+      setShowLoginPage(false);
+    }
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      {showLoginPage && (
+        <LoginPage
+          userData={userData}
+          setUserData={setUserData}
+          setWalletId={setWalletId}
+        />
+      )}
+      {walletId.length !== 0 && <WalletPage walletId={walletId} />}
+      <Toaster />
     </div>
   );
 }

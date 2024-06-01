@@ -1,0 +1,46 @@
+const myHeaders = new Headers();
+myHeaders.append("Content-Type", "application/json");
+
+export const transact = async (payload: {
+  walletId: string;
+  amount: number;
+  description: string;
+}) => {
+  const raw = JSON.stringify({
+    amount: payload.amount,
+    description: payload.description,
+  });
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+  };
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/wallet/transact/${payload.walletId}`,
+    requestOptions
+  );
+
+  return response.json();
+};
+
+export const creatWalletApi = async (payload: {
+  name: string;
+  balance: number;
+}) => {
+  const raw = JSON.stringify(payload);
+
+  const requestOptions = {
+    method: "POST",
+    headers: myHeaders,
+    body: raw,
+  };
+
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/wallet/setup`,
+    requestOptions
+  );
+
+  return response.json();
+};

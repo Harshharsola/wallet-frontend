@@ -44,3 +44,16 @@ export const creatWalletApi = async (payload: {
 
   return response.json();
 };
+
+export const getTransactions = async (payload: {
+  walletId: string;
+  skip: number;
+  limit: number;
+}) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/wallet/transactions?walletId=${payload.walletId}&skip=${payload.skip}&limit=${payload.limit}`,
+    { method: "GET" }
+  );
+
+  return response.json();
+};

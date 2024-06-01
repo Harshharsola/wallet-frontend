@@ -28,7 +28,7 @@ function App() {
 
   return (
     <div>
-      {showLoginPage && (
+      {showLoginPage && walletId.length === 0 && (
         <LoginPage
           userData={userData}
           setUserData={setUserData}

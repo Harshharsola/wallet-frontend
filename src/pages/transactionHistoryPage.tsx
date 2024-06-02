@@ -15,6 +15,7 @@ import {
 } from "@mui/base/TablePagination";
 import toast from "react-hot-toast";
 import { TableFooter } from "@mui/material";
+import DownloadTransactions from "../components/downloadComponent";
 
 const Page = styled.div`
   background-color: #1f4d90;
@@ -89,7 +90,7 @@ function TransactionHistoryPage({ walletId }: { walletId: string }) {
           <TableFooter>
             <TableRow>
               <CustomTablePagination
-                rowsPerPageOptions={[1, 2, 5, { label: "All", value: -1 }]}
+                rowsPerPageOptions={[1, 2, 5, 10]}
                 onPageChange={(event, newPage) => {
                   console.log(event);
                   setPage(newPage);
@@ -105,6 +106,7 @@ function TransactionHistoryPage({ walletId }: { walletId: string }) {
             </TableRow>
           </TableFooter>
         </Table>
+        <DownloadTransactions walletId={walletId} />
       </Modal>
     </Page>
   );

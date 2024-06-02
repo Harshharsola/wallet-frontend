@@ -66,3 +66,12 @@ export const getWalletDetails = async (walletId: string) => {
 
   return response.json();
 };
+
+export const downloadTransactionsApi = async (walletId: string) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/wallet/transactions/csv?walletId=${walletId}`,
+    { method: "GET" }
+  );
+
+  return response;
+};

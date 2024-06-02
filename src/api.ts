@@ -57,3 +57,12 @@ export const getTransactions = async (payload: {
 
   return response.json();
 };
+
+export const getWalletDetails = async (walletId: string) => {
+  const response = await fetch(
+    `${process.env.REACT_APP_API_URL}/wallet/${walletId}`,
+    { method: "GET" }
+  );
+
+  return response.json();
+};

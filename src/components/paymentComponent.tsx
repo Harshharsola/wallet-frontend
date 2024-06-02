@@ -9,6 +9,7 @@ import { creatWalletApi, transact } from "../api";
 
 interface Iprops {
   walletId: string;
+  setRefreshBalance: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const Modal = styled.div`
@@ -66,6 +67,7 @@ function PaymentComponent(props: Iprops) {
       });
     }
     if (response.status === "200") {
+      props.setRefreshBalance((prev) => !prev);
       toast.success("Transaction successfull");
     } else {
       toast.error(response.message);
